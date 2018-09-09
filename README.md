@@ -2,7 +2,7 @@
 
 ## requirement
 
-* ForAll[A](A => Boolean) function should return boolean result,  which can be assert by scalaTest. And println some test information. If all test cases pass, println "The amount of the test cases passed", otherwise println the reasons for failure.
+* ForAll[A](A => Boolean) function should return boolean result,  which can be asserted by scalaTest. And println some test information. If all test cases pass, println "The amount of the test cases passed", otherwise println the reasons for failure.
 
 * Provide APIs to generate test datas. Such as `[A]`, `List[A]`,`odd`, `even` and so on. It would gives different results meet the requirements when call them each time. And you can choose differet range and size.
 
