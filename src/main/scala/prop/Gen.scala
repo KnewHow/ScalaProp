@@ -1,6 +1,7 @@
-package fpscala.testing
+package prop.gen
 
 import prop.state.State
+import prop.stream.Stream
 import prop.parallelism._
 import java.util.concurrent._
 case class Gen[A](sample: State[RNG, A]) {
@@ -46,7 +47,33 @@ object Gen {
   def unit[A](a: => A): Gen[A] = Gen(State.unit[RNG, A](a))
 
   def double: Gen[Double] = Gen(RNG.double)
+
+  def listOf(size: (Int, Int), range: (Int, Int)) = ???
   type Par[A] = (ExecutorService) => prop.parallelism.Future[A]
+
+  def listOfN[A](size: Int, g: Gen[A]): Gen[List[A]] =
+    Gen(State.sequence(List.fill(size)(g.sample)))
+
+  def listOfN[A](size: Gen[Int], g: Gen[A]): Gen[List[A]] =
+    size.flatMap(s => listOfN(s, g))
+
+  def run[A](g: Gen[A]): Stream[A] = {
+    val rng = RNG.get
+    Stream.unfold(rng)(rng => Some(g.sample.run(rng)))
+  }
+
+  def stringN(n: Int): Gen[String] =
+    listOfN(n, choose(0, 127)).map(_.map(_.toChar).mkString)
+
+  def odd(start: Int, stopExclusive: Int): Gen[Int] =
+    choose(start, stopExclusive).map { r =>
+      if (r % 2 == 0) r + 1 else r
+    }
+
+  def even(start: Int, stopExclusive: Int): Gen[Int] =
+    choose(start, stopExclusive).map { r =>
+      if (r % 2 != 0) r + 1 else r
+    }
 
   def pint2: Gen[Par[Int]] = choose(-100, 100).listOfN(choose(0, 20)).map { l =>
     l.foldLeft[Par[Int]](NoBlockPar.unit(0))((p, i) =>

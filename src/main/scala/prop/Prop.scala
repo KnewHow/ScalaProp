@@ -1,4 +1,4 @@
-package fpscala.testing
+package prop.gen
 
 import prop.stream.Stream
 
@@ -15,11 +15,14 @@ case class Falsified(failure: String, successes: Int) extends Result {
 }
 
 case class Prop(run: (Int, RNG) => Result) {
-  def test(n: Int, rng: RNG): Unit = this.run(n, rng) match {
-    case Passed => println(s"OK, $n testcases passed")
+  def test(n: Int, rng: RNG): Boolean = this.run(n, rng) match {
+    case Passed =>
+      println(s"OK, $n testcases passed")
+      true
     case f: Falsified =>
       println(
         s"test case failure, case by ${f.failure}, But success ${f.successes} times")
+      false
   }
 
   def &&(p: Prop): Prop = Prop { (n, rng) =>

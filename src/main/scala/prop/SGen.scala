@@ -1,4 +1,4 @@
-package fpscala.testing
+package prop.gen
 
 import prop.parallelism._
 import java.util.concurrent._

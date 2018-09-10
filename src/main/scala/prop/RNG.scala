@@ -1,4 +1,4 @@
-package fpscala.testing
+package prop.gen
 
 import prop.state.State
 

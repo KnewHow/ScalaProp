@@ -1,4 +1,4 @@
-package fpscala.testing
+package prop.gen
 
 import prop.stream.Stream
 import prop.parallelism._
@@ -9,10 +9,13 @@ case class SProp(run: (Int, Int, RNG) => Result) {
       maxSize: Int = 100,
       testCases: Int = 100,
       rng: RNG = RNG(System.currentTimeMillis)
-  ): Unit = this.run(maxSize, testCases, rng) match {
-    case Passed => println(s"OK, $testCases  testCases passed")
+  ): Boolean = this.run(maxSize, testCases, rng) match {
+    case Passed =>
+      println(s"OK, $testCases testCases passed")
+      true
     case Falsified(msg, sc) =>
       println(s"test case failure, case by $msg, But success $sc times")
+      false
   }
 
   def &&(sp: SProp): SProp = SProp { (maxSize, testCases, rng) =>
