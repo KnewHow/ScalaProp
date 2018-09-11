@@ -2,6 +2,12 @@ package prop.gen
 
 import prop.state.State
 
+/**
+  * A class generate rand number, but it is need a seed first.
+  * Most of its functions will return a `State`, which present a state to next state.
+  * You can get detail from ` prop.state.State`
+  * @Author How
+  */
 case class RNG(seed: Long) {
   def nextInt: State[RNG, Int] = {
     State[RNG, Int](
@@ -24,6 +30,10 @@ case class RNG(seed: Long) {
         r
       }
     }
+
+  /**
+    * produce a int with range
+    */
   def nextInt(start: Int, stopExclusive: Int): State[RNG, Int] =
     nonNegativeInt.map { r =>
       start + r % (stopExclusive - start)
@@ -34,6 +44,10 @@ case class RNG(seed: Long) {
 }
 
 object RNG {
+
+  /**
+    * use current millisecond as seed to make sure get differen `rng` when you call each time
+    */
   val r = RNG(System.currentTimeMillis)
   def boolean: State[RNG, Boolean] = r.boolean
   def nonNegativeInt: State[RNG, Int] = r.nonNegativeInt
