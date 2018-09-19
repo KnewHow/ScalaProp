@@ -40,13 +40,13 @@ case class Prop(run: (Int, RNG) => Result) {
     * @param rng The rng to run generator
     * @return If all test cases passed, return true, otherwise return false.
     */
-  def test(n: Int, rng: RNG): Boolean = this.run(n, rng) match {
+  def test(n: Int = 10, rng: RNG = RNG.get): Boolean = this.run(n, rng) match {
     case Passed =>
-      println(s"OK, $n testcases passed")
+      println(s"[info] OK, $n testcases passed")
       true
     case f: Falsified =>
       println(
-        s"test case failure, case by ${f.failure}, But success ${f.successes} times")
+        s"[info] test case failure, case by ${f.failure}, But success ${f.successes} times")
       false
   }
 

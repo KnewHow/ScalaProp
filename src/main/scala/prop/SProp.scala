@@ -4,22 +4,21 @@ import prop.stream.Stream
 import prop.parallelism._
 import java.util.concurrent._
 
-case class SProp(run: (Int, Int, RNG) => Result) {
+case class SProp(run: (Int, Int) => Result) {
   def test(
       maxSize: Int = 100,
       testCases: Int = 100,
-      rng: RNG = RNG(System.currentTimeMillis)
-  ): Boolean = this.run(maxSize, testCases, rng) match {
+  ): Boolean = this.run(maxSize, testCases) match {
     case Passed =>
-      println(s"OK, $testCases testCases passed")
+      println(s"[info] OK, $testCases testCases passed")
       true
     case Falsified(msg, sc) =>
-      println(s"test case failure, case by $msg, But success $sc times")
+      println(s"[info] test case failure, case by $msg, But success $sc times")
       false
   }
 
-  def &&(sp: SProp): SProp = SProp { (maxSize, testCases, rng) =>
-    (this.run(maxSize, testCases, rng), sp.run(maxSize, testCases, rng)) match {
+  def &&(sp: SProp): SProp = SProp { (maxSize, testCases) =>
+    (this.run(maxSize, testCases), sp.run(maxSize, testCases)) match {
       case (Passed, Passed)       => Passed
       case (f: Falsified, Passed) => f
       case (Passed, f: Falsified) => f
@@ -28,8 +27,8 @@ case class SProp(run: (Int, Int, RNG) => Result) {
     }
   }
 
-  def ||(sp: SProp): SProp = SProp { (maxSize, testCases, rng) =>
-    (this.run(maxSize, testCases, rng), sp.run(maxSize, testCases, rng)) match {
+  def ||(sp: SProp): SProp = SProp { (maxSize, testCases) =>
+    (this.run(maxSize, testCases), sp.run(maxSize, testCases)) match {
       case (Falsified(f1, s1), Falsified(f2, s2)) =>
         Falsified(f1 + "," + f2, s1 + s2)
       case _ => Passed
@@ -41,7 +40,7 @@ object SProp {
   def forAll[A](sg: SGen[A])(f: A => Boolean): SProp = forAll(sg.forSize)(f)
 
   def forAll[A](g: Int => Gen[A])(f: A => Boolean): SProp = SProp {
-    (maxSize, testCases, rng) =>
+    (maxSize, testCases) =>
       {
         val casesPerSize = (testCases + (maxSize - 1) / maxSize)
         val props: Stream[Prop] = Stream
@@ -50,16 +49,16 @@ object SProp {
           .map(i => Prop.forAll(g(i))(f))
         val sp: SProp = props
           .map(p =>
-            SProp { (maxSize, casesPerSize, rng) =>
-              p.run(maxSize, rng)
+            SProp { (maxSize, casesPerSize) =>
+              p.run(maxSize, RNG.get)
           })
           .toList
           .reduce(_ && _)
-        sp.run(maxSize, testCases, rng)
+        sp.run(maxSize, testCases)
       }
   }
 
-  def check(p: => Boolean): SProp = SProp { (_, _, _) =>
+  def check(p: => Boolean): SProp = SProp { (_, _) =>
     if (p) Passed else Falsified("()", 0)
   }
 

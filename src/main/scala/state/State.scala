@@ -30,8 +30,11 @@ case class State[S, +A](run: S => (A, S)) {
 
 object State {
   def unit[S, A](a: A): State[S, A] = State(s => (a, s))
-  def sequence[A, S](as: List[State[S, A]]): State[S, List[A]] =
+  def sequence2[A, S](as: List[State[S, A]]): State[S, List[A]] =
     as.foldRight(unit[S, List[A]](List()))((a, b) => a.map2(b)(_ :: _))
+
+  def sequence[A, S](as: List[State[S, A]]): State[S, List[A]] =
+    as.foldLeft(unit[S, List[A]](List()))((b, a) => b.map2(a)((x, y) => y :: x))
 
   def modify[S](f: S => S): State[S, Unit] =
     for {

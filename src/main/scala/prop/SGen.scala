@@ -3,6 +3,12 @@ package prop.gen
 import prop.parallelism._
 import java.util.concurrent._
 
+/**
+  * SGen is super gen, it can generate differen generator to
+  * test you code.
+  *
+  * You need give a Int => Gen[A] function to constrct it.
+  */
 case class SGen[A](forSize: Int => Gen[A]) {
 
   def boolean: SGen[Boolean] = SGen(forSize(_).boolean)

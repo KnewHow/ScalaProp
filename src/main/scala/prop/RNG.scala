@@ -48,15 +48,14 @@ object RNG {
   /**
     * use current millisecond as seed to make sure get differen `rng` when you call each time
     */
-  val r = RNG(System.currentTimeMillis)
-  def boolean: State[RNG, Boolean] = r.boolean
-  def nonNegativeInt: State[RNG, Int] = r.nonNegativeInt
+  def boolean: State[RNG, Boolean] = get.boolean
+  def nonNegativeInt: State[RNG, Int] = get.nonNegativeInt
   def nextInt(start: Int, stopExclusive: Int): State[RNG, Int] =
-    r.nextInt(start, stopExclusive)
+    get.nextInt(start, stopExclusive)
 
-  def double = r.double
+  def double = get.double
 
   def Simple(l: Long) = State.unit(l)
 
-  def get: RNG = r
+  def get: RNG = RNG(System.nanoTime)
 }
