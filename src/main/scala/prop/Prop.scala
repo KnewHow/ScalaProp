@@ -90,6 +90,7 @@ object Prop {
     */
   def forAll[A](as: Gen[A])(f: A => Boolean): Prop = Prop { (n, rng) =>
     {
+      println(randomStream(as)(rng).take(n).toList)
       randomStream(as)(rng)
         .zip(Stream.from(0))
         .take(n)
