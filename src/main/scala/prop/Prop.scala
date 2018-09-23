@@ -46,7 +46,7 @@ case class Prop(run: (Int, RNG) => Result) {
       true
     case f: Falsified =>
       println(
-        s"[info] test case failure, case by ${f.failure}, But success ${f.successes} times")
+        s"[error] test case failure, case by ${f.failure}, But success ${f.successes} times")
       false
   }
 
@@ -90,7 +90,6 @@ object Prop {
     */
   def forAll[A](as: Gen[A])(f: A => Boolean): Prop = Prop { (n, rng) =>
     {
-      println(randomStream(as)(rng).take(n).toList)
       randomStream(as)(rng)
         .zip(Stream.from(0))
         .take(n)

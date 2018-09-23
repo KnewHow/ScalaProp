@@ -6,7 +6,7 @@ import prop.state.State
   * A class generate rand number, but it is need a seed first.
   * Most of its functions will return a `State`, which present a state to next state.
   * You can get detail from ` prop.state.State`
-  * @Author How
+  * @Author KnewHow 2018-09-23
   */
 case class RNG(seed: Long) {
   def nextInt: State[RNG, Int] = {
