@@ -8,7 +8,7 @@ class ListOfRandomSpec extends FlatSpec {
     val p = Prop.forAll(g) { r =>
       val s = r.sorted
       val h = s.headOption
-      h.map(rs => !r.exists(_ < rs)).getOrElse(true)
+      h.map(rs => r.exists(_ < rs)).getOrElse(true)
     }
     assert(p.test())
   }
