@@ -10,7 +10,7 @@ import prop.gen.Gen
 // return a Gen[Int] with integer range in (1,10), but the range exclusive 10
 Gen.choose(1, 10)
 ```
-It also can generate other generator, you can find them in [Gen]()
+It also can generate other generator, you can find them in [object Gen](https://github.com/KnewHow/ScalaProp/blob/master/src/main/scala/prop/Gen.scala)
 ## Executor
 
 ## Incremental Test Case
