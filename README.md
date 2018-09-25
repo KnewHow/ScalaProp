@@ -37,8 +37,6 @@ class ListOfRandomSpec extends FlatSpec {
 ```
 Because test function return a boolean value, if the value is true, representing the all test cases passed, you can combine it with scala-test assert. At same time, `Prop.test` also println some test information in console. If all test cases passed, it will print `[info] OK, 10 testcases passed`, otherwise will print `[error] test case failure, case by...,But success n times`.
 
-
-
 ## Incremental Test Case
 
 ## Bugs And
