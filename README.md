@@ -25,20 +25,23 @@ import prop.gen._
 
 class ListOfRandomSpec extends FlatSpec {
   "test listOf random" should "success" in {
-    val g = Gen.listOfN(10, Gen.choose(10, 100))
+    // Generate list with 20 size whose element is between 10 and 100
+    val g = Gen.listOfN(20, Gen.choose(10, 100))
     val p = Prop.forAll(g) { r =>
+      // Writing what you want to test, make sure it last result is boolean.
       val s = r.sorted
       val h = s.headOption
       h.map(rs => !r.exists(_ < rs)).getOrElse(true)
     }
+    // In default, test function will run checked function with 10 test cases.
     assert(p.test())
   }
 }
 ```
 Because test function return a boolean value, if the value is true, representing the all test cases passed, you can combine it with scala-test assert. At same time, `Prop.test` also println some test information in console. If all test cases passed, it will print `[info] OK, 10 testcases passed`, otherwise will print `[error] test case failure, case by...,But success n times`.
 
-## Incremental Test Case
-
+## Incremental Testing
+Sometimes, once or twice testing don't test whether has bug in checked function. We may want a test way, which can increase the test cases gradually until run times we assigned. `SProp` is born in time!
 ## Bugs And
 
 ## How to Get
