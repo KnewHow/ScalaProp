@@ -82,6 +82,8 @@ class SPropFixedStepSpec extends FlatSpec {
 
 The function will take 10 test cases first, then increase test cases by step 1 unitl it run 20 times. In this way, it will reduce testing fortuity.
 
+But sometimes, fixed step could be stiff, So we also prepare a random step
+
 We has give some default parameters to `test` function, So you can not pass any parameters to `test` function.
 
 ## Bugs And
