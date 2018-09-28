@@ -23,8 +23,8 @@ package test.prop.gen
 import org.scalatest.FlatSpec
 import prop.gen._
 
-class ListOfRandomSpec extends FlatSpec {
-  "test listOf random" should "success" in {
+class ListOfFixedSizeSpec extends FlatSpec {
+  "test listOf with fixed size" should "success" in {
     // Generate list with 20 size whose element is between 10 and 100
     val g = Gen.listOfN(20, Gen.choose(10, 100))
     val p = Prop.forAll(g) { r =>
@@ -40,10 +40,50 @@ class ListOfRandomSpec extends FlatSpec {
 ```
 Because test function return a boolean value, if the value is true, representing the all test cases passed, you can combine it with scala-test assert. At same time, `Prop.test` also println some test information in console. If all test cases passed, it will print `[info] OK, 10 testcases passed`, otherwise will print `[error] test case failure, case by...,But success n times`.
 
-## Incremental Testing
-Sometimes, once or twice testing don't test whether has bug in checked function. We may want a test way, which can increase the test cases gradually until run times we assigned. `SProp` is born in time!
+you can also generate a list with random size by `Gen.listOfN(Gen.choose(10, 20), Gen.choose(10, 100))`.
 
-For example, you want to test a sorted function 20 times and you want increase test cases gradually until run it with 20 times. So you can
+## Incremental Testing
+Sometimes, once or twice testing don't test whether a bug in checked function. We may want a test way, which can increase the test cases gradually until run enough times we assigned. `SProp` is born in time!
+
+For example, If you want to test a sorted function and want to test it 20 times with test cases increasing gradually. You can choose `SProp`, you can refer following code:
+```Scala
+package test.prop.sgen
+
+import org.scalatest.FlatSpec
+import prop.gen._
+
+class SPropFixedStepSpec extends FlatSpec {
+  "test SProp with sorted function by fixed step increasing" should "success" in {
+    // geneate a list with random size whose element is random
+    val g = Gen.listOfN(Gen.choose(100, 200), Gen.choose(300, 400))
+    // conver Gen into SGen, it is very simply
+    val sg = g.unsized
+    // similar with Prop.forAll, just return a boolean result
+    val p = SProp.forAll(sg) { r =>
+      val s = r.sorted
+      val h = s.headOption
+      h.map(rs => !r.exists(_ < rs)).getOrElse(true)
+    }
+    // run the checked function
+    assert(
+      p.test(
+        // the minimal test cases will be run first
+        minTestCase = 10,
+        // the step the test cases will increase by
+        step = 1,
+        // how many time the function will be run
+        testTimes = 20,
+        // whether use random step
+        randomStep = false
+      ))
+  }
+}
+```
+
+The function will take 10 test cases first, then increase test cases by step 1 unitl it run 20 times. In this way, it will reduce testing fortuity.
+
+We has give some default parameters to `test` function, So you can not pass any parameters to `test` function.
+
 ## Bugs And
 
 ## How to Get
