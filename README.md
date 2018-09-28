@@ -42,6 +42,8 @@ Because test function return a boolean value, if the value is true, representing
 
 ## Incremental Testing
 Sometimes, once or twice testing don't test whether has bug in checked function. We may want a test way, which can increase the test cases gradually until run times we assigned. `SProp` is born in time!
+
+For example, you want to test a sorted function 20 times and you want increase test cases gradually until run it with 20 times. So you can
 ## Bugs And
 
 ## How to Get
