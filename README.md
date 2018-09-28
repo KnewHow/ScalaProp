@@ -82,10 +82,14 @@ class SPropFixedStepSpec extends FlatSpec {
 
 The function will take 10 test cases first, then increase test cases by step 1 unitl it run 20 times. In this way, it will reduce testing fortuity.
 
-But sometimes, fixed step could be stiff, So we also prepare a random step
+But sometimes, fixed step could be stiff, So we also prepare a random step between 1 and n which you assigned. You just need
+assign `randomStep=true`, we will genereate random step between 1 and `n`
 
 We has give some default parameters to `test` function, So you can not pass any parameters to `test` function.
 
-## Bugs And
+## Bugs
+The `Gen` is so easy and elegant, but it has some bugs:
+If you want to test `Gen.listOfN` with a big size list, it will throw `stack overflow`. The tempoary  solution is you can increase stack size by jvm prameters with `-Xss500M`. You can write it in a file named `.jvmopts` in sbt project root directory.
 
+I will try to fix it in the future!
 ## How to Get
