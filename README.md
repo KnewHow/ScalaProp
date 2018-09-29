@@ -1,5 +1,4 @@
 # scala-test-prop  Scala Test Case Generator And Exector
-
 =====================================================================================================
 [![Build Status](https://travis-ci.org/KnewHow/ScalaProp.svg?branch=master)](https://travis-ci.org/KnewHow/ScalaProp)
 
