@@ -4,7 +4,7 @@ import org.scalatest.FlatSpec
 import scala.util.control.TailCalls._
 
 class TailCallsSpec extends FlatSpec {
-  val n = 80
+  val n = 40
   val stdR = 102334155
   def fib(n: Int): Int = if (n < 2) n else fib(n - 1) + fib(n - 2)
 
