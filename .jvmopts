@@ -1,4 +1,4 @@
 -Xms512M
+-Xss500M
 -Xmx4096M
--Xss200M
 -XX:MaxMetaspaceSize=1024M

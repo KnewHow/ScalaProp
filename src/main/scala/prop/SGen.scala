@@ -4,20 +4,20 @@ import prop.parallelism._
 import java.util.concurrent._
 
 /**
- * SGen is super gen, it can generate differen generator to
- * test you code.
- *
- * You need give a Int => Gen[A] function to constrct it or
- * you can call g:Gen.unsized obtaining SGen.
- *
- * Even if g.unsized return any integerto same Gen[A] function, but in ascending testing way,
- * it can make sure test cases increasing base same test cases.
- * You also can generate different mapping by self implement.
- *
- * The method in SGen is similar with Gen.
- *
- * @Author KnewHow 2018-09-23
- */
+  * SGen is super gen, it can generate differen generator to
+  * test you code.
+  *
+  * You need give a Int => Gen[A] function to constrct it or
+  * you can call g:Gen.unsized obtaining SGen.
+  *
+  * Even if g.unsized return any integerto same Gen[A] function, but in ascending testing way,
+  * it can make sure test cases increasing base same test cases.
+  * You also can generate different mapping by self implement.
+  *
+  * The method in SGen is similar with Gen.
+  *
+  * @Author KnewHow 2018-09-23
+  */
 case class SGen[A](forSize: Int => Gen[A]) {
 
   def boolean: SGen[Boolean] = SGen(forSize(_).boolean)
