@@ -1,5 +1,6 @@
 Scala-test-prop  Scala Test Case Generator And Exector
 =====================================================================================================
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5d6dbc6b3d4b44798f56de5d6c82bced)](https://app.codacy.com/app/KnewHow/ScalaProp?utm_source=github.com&utm_medium=referral&utm_content=KnewHow/ScalaProp&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/KnewHow/ScalaProp.svg?branch=master)](https://travis-ci.org/KnewHow/ScalaProp)
 
 Scala-tes-prop provides test cases generator then run test function with them. Finally it will println test result information and return a boolean value to tell you test result which can be asserted by scala test.
