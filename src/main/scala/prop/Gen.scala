@@ -81,8 +81,6 @@ object Gen {
 
   def double: Gen[Double] = Gen(RNG.double)
 
-  def listOf(size: (Int, Int), range: (Int, Int)) = ???
-
   /**
     * It is same with above
     */
