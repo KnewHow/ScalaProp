@@ -1,6 +1,6 @@
 scalaVersion := "2.12.6"
 name := "ScalaProp"
-organization := "www.knewhow.me.scala"
+organization := "com.github.knewhow"
 version := "1.0"
 libraryDependencies ++= Seq(
   "org.typelevel" %% "cats-core" % "1.1.0",
@@ -13,8 +13,5 @@ publishTo := {
   else
     Some("releases" at nexus + "service/local/staging/deploy/maven2/")
 }
-// Add the default sonatype repository setting
-publishTo := sonatypePublishTo.value
-
 scalafmtVersion in ThisBuild := "1.1.0"
 scalafmtOnCompile in ThisBuild := true
