@@ -97,3 +97,8 @@ If you want to test `Gen.listOfN` with a big size list, it will throw `stack ove
 
 I will try to fix it in the future!
 ## How to Get
+You can add following code in your build.sbt file to get it:
+```Scala
+// https://mvnrepository.com/artifact/com.github.knewhow/scalaprop
+libraryDependencies += "com.github.knewhow" %% "scalaprop" % "1.0"
+```
