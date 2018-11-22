@@ -39,6 +39,12 @@ case class RNG(seed: Long) {
       start + r % (stopExclusive - start)
     }
 
+  def increasingInt(step: Long): State[RNG, Long] =
+    for {
+      r <- State.get
+      _ <- State.set(r.copy(seed = r.seed + step))
+    } yield r.seed
+
   def double: State[RNG, Double] = nextInt.map(r => r / (Int.MaxValue))
 
 }
@@ -52,6 +58,11 @@ object RNG {
   def nonNegativeInt: State[RNG, Int] = get.nonNegativeInt
   def nextInt(start: Int, stopExclusive: Int): State[RNG, Int] =
     get.nextInt(start, stopExclusive)
+
+  def increasingInt(start: Long, step: Long): State[RNG, Long] =
+    RNG(start).increasingInt(step)
+
+  def unit[A](a: => A): State[RNG, A] = State.unit(a)
 
   def double = get.double
 
