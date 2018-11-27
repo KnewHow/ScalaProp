@@ -65,6 +65,9 @@ case class Gen[A](sample: State[RNG, A]) {
   def map2[B, C](g: Gen[B])(f: (A, B) => C): Gen[C] =
     Gen(sample.map2(g.sample)(f))
 
+  def sequence(as: List[Gen[A]]): Gen[List[A]] =
+    as.foldLeft(Gen.unit[List[A]](List()))((a, b) => b.map2(a)(_ :: _))
+
   def **[B](g: Gen[B]): Gen[(A, B)] = this.map2(g)(_ -> _)
 
 }
@@ -92,6 +95,9 @@ object Gen {
     */
   def listOfN[A](size: Gen[Int], g: Gen[A]): Gen[List[A]] =
     size.flatMap(s => listOfN(s, g))
+
+  def sequence[A](as: List[Gen[A]]): Gen[List[A]] =
+    as.foldLeft(Gen.unit[List[A]](List()))((a, b) => b.map2(a)(_ :: _))
 
   /**
     * Convert a generator to Stream, but this Stream is not Scala autogenetic Stream, it is our restructuring Stream,
