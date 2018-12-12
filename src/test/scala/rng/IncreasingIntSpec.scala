@@ -1,5 +1,5 @@
 package test.prop.rng
-import prop.gen.{RNG}
+import prop.random.RNG
 import prop.state.State
 import org.scalatest.FlatSpec
 

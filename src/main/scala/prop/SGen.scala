@@ -2,6 +2,7 @@ package prop.gen
 
 import prop.parallelism._
 import java.util.concurrent._
+import prop.random.RNG
 
 /**
   * SGen is super gen, it can generate differen generator to

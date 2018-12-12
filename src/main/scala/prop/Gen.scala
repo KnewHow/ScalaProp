@@ -1,6 +1,7 @@
 package prop.gen
 
 import prop.state.State
+import prop.random.RNG
 import prop.stream.Stream
 import prop.parallelism._
 import java.util.concurrent._

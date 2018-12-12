@@ -2,7 +2,7 @@ package test.prop
 
 import org.scalatest.FlatSpec
 import prop.stream._
-import prop.gen._
+import prop.random.RNG
 
 class RNGSpec extends FlatSpec {
   "use scala test" should "success" in {

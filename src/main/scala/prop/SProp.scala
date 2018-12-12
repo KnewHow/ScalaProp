@@ -2,6 +2,7 @@ package prop.gen
 
 import prop.parallelism._
 import java.util.concurrent._
+import prop.random.RNG
 
 /**
   * Incremental test tool.

@@ -1,4 +1,4 @@
-package prop.gen
+package prop.random
 
 import prop.state.State
 

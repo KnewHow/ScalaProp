@@ -1,6 +1,7 @@
 package test.prop.state
 
-import prop.state._
+import prop.state.State
+import prop.random.RNG
 import prop.gen._
 import prop.stream.Stream
 import org.scalatest.FlatSpec

@@ -1,7 +1,7 @@
 scalaVersion := "2.12.6"
 name := "ScalaProp"
 organization := "com.github.knewhow"
-version := "1.0"
+version := "1.1.0"
 libraryDependencies ++= Seq(
   "org.typelevel" %% "cats-core" % "1.1.0",
   "org.scalatest" %% "scalatest" % "3.0.5" % "test"
@@ -11,6 +11,8 @@ scalafmtOnCompile in ThisBuild := true
 
 // PUBLISH SETTING
 publishTo := sonatypePublishTo.value
+publishTo := Some(
+  Resolver.file("file", new File("path/to/my/maven-repo/releases")))
 
 ThisBuild / organization := "com.github.knewhow"
 ThisBuild / organizationName := "scalaProp"

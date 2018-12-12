@@ -1,6 +1,7 @@
 package prop.gen
 
 import prop.stream.Stream
+import prop.random.RNG
 
 /**
   * Test result trait, it has `isFalsified` property to represent

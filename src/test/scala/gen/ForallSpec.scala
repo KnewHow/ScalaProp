@@ -2,6 +2,7 @@ package test.prop.gen
 
 import org.scalatest.FlatSpec
 import prop.gen._
+import prop.random.RNG
 
 class ForAllSpec extends FlatSpec {
   "test sort function" should "success" in {
