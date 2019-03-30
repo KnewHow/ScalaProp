@@ -1,5 +1,6 @@
 Scala-test-prop  Scala Test Case Generator And Exector
 =====================================================================================================
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5d6dbc6b3d4b44798f56de5d6c82bced)](https://app.codacy.com/app/KnewHow/ScalaProp?utm_source=github.com&utm_medium=referral&utm_content=KnewHow/ScalaProp&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/KnewHow/ScalaProp.svg?branch=master)](https://travis-ci.org/KnewHow/ScalaProp)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4a39a5203267439ebe30d4d060cb2bfa)](https://www.codacy.com/app/KnewHow/ScalaProp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=KnewHow/ScalaProp&amp;utm_campaign=Badge_Grade)
 
